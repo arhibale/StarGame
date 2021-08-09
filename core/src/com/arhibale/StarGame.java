@@ -1,8 +1,7 @@
 package com.arhibale;
 
-import com.badlogic.gdx.Game;
-
 import com.arhibale.screen.MenuScreen;
+import com.badlogic.gdx.Game;
 
 public class StarGame extends Game {
 	
