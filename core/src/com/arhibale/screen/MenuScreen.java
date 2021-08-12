@@ -83,11 +83,6 @@ public class MenuScreen extends BaseScreen {
         return false;
     }
 
-    @Override
-    public boolean touchDragged(Vector2 touch, int pointer) {
-        return false;
-    }
-
     private void update(float delta) {
         for (Star star : stars) {
             star.update(delta);
