@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class PlayButton extends BaseButton {
 
-    private static final float PADDING = 0.03f;
-
     private final Game game;
 
     public PlayButton(TextureAtlas atlas, Game game) {
@@ -20,8 +18,7 @@ public class PlayButton extends BaseButton {
     @Override
     public void resize(Rect worldBounds) {
         setHeightProportion(0.23f);
-        setBottom(worldBounds.getBottom() + PADDING);
-        setLeft(worldBounds.getLeft() + PADDING);
+        setBottom(worldBounds.getBottom() + 0.55f);
     }
 
     @Override

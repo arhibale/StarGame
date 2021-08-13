@@ -2,6 +2,7 @@ package com.arhibale.screen;
 
 import com.arhibale.base.BaseScreen;
 import com.arhibale.math.Rect;
+import com.arhibale.pool.BulletPool;
 import com.arhibale.sprite.Background;
 import com.arhibale.sprite.MainShip;
 import com.arhibale.sprite.Star;
@@ -19,6 +20,7 @@ public class GameScreen extends BaseScreen {
     private TextureAtlas atlas;
 
     private Star[] stars;
+    private BulletPool bulletPool;
     private MainShip mainShip;
 
     @Override
@@ -32,13 +34,15 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
-        mainShip = new MainShip(atlas);
+        bulletPool = new BulletPool();
+        mainShip = new MainShip(atlas, bulletPool);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
         update(delta);
+        freeAllDestroyed();
         draw();
     }
 
@@ -57,6 +61,7 @@ public class GameScreen extends BaseScreen {
         super.dispose();
         bg.dispose();
         atlas.dispose();
+        bulletPool.dispose();
     }
 
     @Override
@@ -76,6 +81,7 @@ public class GameScreen extends BaseScreen {
             star.update(delta);
         }
         mainShip.update(delta);
+        bulletPool.updateActiveSprite(delta);
     }
 
     private void draw() {
@@ -85,7 +91,12 @@ public class GameScreen extends BaseScreen {
             star.draw(batch);
         }
         mainShip.draw(batch);
+        bulletPool.drawActiveSprite(batch);
         batch.end();
+    }
+
+    private void freeAllDestroyed() {
+        bulletPool.freeAllDestroyedActiveSprite();
     }
 
     @Override

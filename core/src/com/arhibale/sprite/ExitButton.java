@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class ExitButton extends BaseButton {
 
-    private static final float PADDING = 0.03f;
-
     public ExitButton(TextureAtlas atlas) {
         super(atlas.findRegion("btExit"));
     }
@@ -17,8 +15,7 @@ public class ExitButton extends BaseButton {
     @Override
     public void resize(Rect worldBounds) {
         setHeightProportion(0.18f);
-        setBottom(worldBounds.getBottom() + PADDING);
-        setRight(worldBounds.getRight() - PADDING);
+        setBottom(worldBounds.getBottom() + 0.25f);
     }
 
     @Override
