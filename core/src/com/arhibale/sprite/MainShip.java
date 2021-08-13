@@ -137,7 +137,7 @@ public class MainShip extends Sprite {
                     stop();
                 }
                 break;
-            case Input.Keys.UP:
+            case Input.Keys.Z:
                 shoot();
                 break;
         }
