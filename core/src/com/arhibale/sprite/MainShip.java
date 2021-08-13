@@ -24,12 +24,15 @@ public class MainShip extends Sprite {
     private int rightPointer = INVALID_POINTER;
 
     private Rect worldBounds;
-    private BulletPool bulletPool;
-    private TextureRegion bulletRegion;
-    private Vector2 bulletPosition;
-    private Vector2 bulletV;
-    private float bulletHeight;
-    private int bulletDamage;
+
+    private final BulletPool bulletPool;
+    private final TextureRegion bulletRegion;
+    private final Vector2 bulletPosition;
+    private final Vector2 bulletV;
+    private final float bulletHeight;
+    private final int bulletDamage;
+    private final float shootInterval;
+    private float shootTimer;
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -39,6 +42,7 @@ public class MainShip extends Sprite {
         bulletV = new Vector2(0, 0.5f);
         bulletHeight = 0.01f;
         bulletDamage = 1;
+        shootInterval = 0.4f;
     }
 
     @Override
@@ -53,6 +57,11 @@ public class MainShip extends Sprite {
     public void update(float delta) {
         super.update(delta);
         pos.mulAdd(v, delta);
+        shootTimer += delta;
+        if (shootTimer >= shootInterval) {
+            shootTimer = 0f;
+            shoot();
+        }
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
@@ -160,5 +169,6 @@ public class MainShip extends Sprite {
         Bullet bullet = bulletPool.obtain();
         bulletPosition.set(pos.x, pos.y + getHalfHeight());
         bullet.set(this, bulletRegion, bulletPosition, bulletV, bulletHeight, worldBounds, bulletDamage);
+        bullet.playSound();
     }
 }
