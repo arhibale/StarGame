@@ -5,6 +5,8 @@ import com.arhibale.math.Rect;
 import com.arhibale.pool.BulletPool;
 import com.arhibale.pool.EnemyPool;
 import com.arhibale.sprite.Background;
+import com.arhibale.sprite.Bullet;
+import com.arhibale.sprite.EnemyShip;
 import com.arhibale.sprite.MainShip;
 import com.arhibale.sprite.Star;
 import com.arhibale.utils.EnemyEmitter;
@@ -14,6 +16,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.List;
 
 public class GameScreen extends BaseScreen {
 
@@ -128,7 +132,20 @@ public class GameScreen extends BaseScreen {
     }
 
     private void checkCollisions() {
-
+        List<EnemyShip> enemyShipList = enemyPool.getActiveSprites();
+        List<Bullet> bullets = bulletPool.getActiveSprites();
+        for (EnemyShip enemyShip : enemyShipList) {
+            if (!mainShip.isOutside(enemyShip)) {
+                enemyShip.destroy();
+            }
+            for (Bullet bullet : bullets) {
+                if (!enemyShip.isOutside(bullet)) {
+                    if (mainShip.equals(bullet.getOwner())) {
+                        enemyShip.destroy();
+                    }
+                }
+            }
+        }
     }
 
     private void freeAllDestroyed() {
