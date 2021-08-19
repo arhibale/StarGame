@@ -31,11 +31,6 @@ public class EnemyEmitter {
     private static final float ENEMY_BIG_RELOAD_INTERVAL = 1f;
     private static final int ENEMY_BIG_HP = 10;
 
-    private final Rect worldBounds;
-    private final Sound bulletSound;
-    private final TextureRegion bulletRegion;
-    private final EnemyPool enemyPool;
-
     private final TextureRegion[] enemySmallRegions;
     private final Vector2 enemySmallV = new Vector2(0f, -0.2f);
     private static final Vector2 enemySmallBulletV = new Vector2(0,-0.3f);
@@ -47,6 +42,11 @@ public class EnemyEmitter {
     private final TextureRegion[] enemyBigRegions;
     private final Vector2 enemyBigV = new Vector2(0f, -0.005f);
     private static final Vector2 enemyBigBulletV = new Vector2(0,-0.3f);
+
+    private final Rect worldBounds;
+    private final Sound bulletSound;
+    private final TextureRegion bulletRegion;
+    private final EnemyPool enemyPool;
 
     private float generateTimer;
 
@@ -107,10 +107,10 @@ public class EnemyEmitter {
                         ENEMY_BIG_HP
                 );
             }
-            enemy.pos.x = Rnd.nextFloat(
+            float posX = Rnd.nextFloat(
                     worldBounds.getLeft() + enemy.getHalfWidth(),
                     worldBounds.getRight() - enemy.getHalfWidth());
-            enemy.setBottom(worldBounds.getTop());
+            enemy.setPos(posX, worldBounds.getTop());
         }
     }
 }
