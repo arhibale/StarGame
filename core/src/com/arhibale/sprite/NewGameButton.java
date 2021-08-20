@@ -27,11 +27,9 @@ public class NewGameButton extends BaseButton {
 
     @Override
     public void action() {
-        if (ship.isDestroyed()) {
-            bulletPool.dispose();
-            enemyPool.dispose();
-            ship.resetHp();
-            ship.flushDestroy();
-        }
+        bulletPool.dispose();
+        enemyPool.dispose();
+        ship.resetHp();
+        ship.flushDestroy();
     }
 }
