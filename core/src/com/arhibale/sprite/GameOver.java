@@ -2,7 +2,6 @@ package com.arhibale.sprite;
 
 import com.arhibale.base.Sprite;
 import com.arhibale.math.Rect;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class GameOver extends Sprite {

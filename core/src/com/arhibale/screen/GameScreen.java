@@ -8,7 +8,6 @@ import com.arhibale.pool.ExplosionPool;
 import com.arhibale.sprite.Background;
 import com.arhibale.sprite.Bullet;
 import com.arhibale.sprite.EnemyShip;
-import com.arhibale.sprite.ExitButton;
 import com.arhibale.sprite.GameOver;
 import com.arhibale.sprite.MainShip;
 import com.arhibale.sprite.NewGameButton;
