@@ -2,7 +2,7 @@ package com.arhibale.pool;
 
 import com.arhibale.base.SpritePool;
 import com.arhibale.math.Rect;
-import com.arhibale.sprite.EnemyShip;
+import com.arhibale.sprite.ship.EnemyShip;
 
 public class EnemyPool extends SpritePool<EnemyShip> {
 

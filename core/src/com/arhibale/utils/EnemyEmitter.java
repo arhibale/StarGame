@@ -3,7 +3,7 @@ package com.arhibale.utils;
 import com.arhibale.math.Rect;
 import com.arhibale.math.Rnd;
 import com.arhibale.pool.EnemyPool;
-import com.arhibale.sprite.EnemyShip;
+import com.arhibale.sprite.ship.EnemyShip;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,29 +11,29 @@ import com.badlogic.gdx.math.Vector2;
 
 public class EnemyEmitter {
 
-    private static final float GENERATE_INTERVAL = 4f;
+    private static final float GENERATE_INTERVAL = 3f;
 
     private static final float ENEMY_SMALL_HEIGHT = 0.1f;
     private static final float ENEMY_SMALL_BULLET_HEIGHT = 0.01f;
     private static final int ENEMY_SMALL_BULLET_DAMAGE = 1;
-    private static final float ENEMY_SMALL_RELOAD_INTERVAL = 3f;
+    private static final float ENEMY_SMALL_RELOAD_INTERVAL = 1f;
     private static final int ENEMY_SMALL_HP = 1;
 
     private static final float ENEMY_MEDIUM_HEIGHT = 0.15f;
     private static final float ENEMY_MEDIUM_BULLET_HEIGHT = 0.02f;
     private static final int ENEMY_MEDIUM_BULLET_DAMAGE = 5;
-    private static final float ENEMY_MEDIUM_RELOAD_INTERVAL = 4f;
+    private static final float ENEMY_MEDIUM_RELOAD_INTERVAL = 1.5f;
     private static final int ENEMY_MEDIUM_HP = 5;
 
     private static final float ENEMY_BIG_HEIGHT = 0.2f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.04f;
     private static final int ENEMY_BIG_BULLET_DAMAGE = 10;
-    private static final float ENEMY_BIG_RELOAD_INTERVAL = 1f;
+    private static final float ENEMY_BIG_RELOAD_INTERVAL = 2f;
     private static final int ENEMY_BIG_HP = 10;
 
     private final TextureRegion[] enemySmallRegions;
     private final Vector2 enemySmallV = new Vector2(0f, -0.2f);
-    private static final Vector2 enemySmallBulletV = new Vector2(0,-0.3f);
+    private static final Vector2 enemySmallBulletV = new Vector2(0,-0.5f);
 
     private final TextureRegion[] enemyMediumRegions;
     private final Vector2 enemyMediumV = new Vector2(0f, -0.03f);
@@ -50,6 +50,8 @@ public class EnemyEmitter {
 
     private float generateTimer;
 
+    private int level;
+
     public EnemyEmitter(Rect worldBounds, Sound bulletSound, EnemyPool enemyPool, TextureAtlas atlas) {
         this.worldBounds = worldBounds;
         this.bulletSound = bulletSound;
@@ -61,8 +63,9 @@ public class EnemyEmitter {
 
     }
 
-    public void generate(float delta) {
-        generateTimer += delta;
+    public void generate(float delta, int frags) {
+        level = frags / 10 + 1;
+        generateTimer += delta + (level / 200.0f);
         if (generateTimer >= GENERATE_INTERVAL) {
             generateTimer = 0f;
             EnemyShip enemy = enemyPool.obtain();
@@ -112,5 +115,9 @@ public class EnemyEmitter {
                     worldBounds.getRight() - enemy.getHalfWidth());
             enemy.setPos(posX, worldBounds.getTop());
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

@@ -1,4 +1,4 @@
-package com.arhibale.sprite;
+package com.arhibale.sprite.button;
 
 import com.arhibale.base.BaseButton;
 import com.arhibale.math.Rect;

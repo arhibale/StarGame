@@ -1,9 +1,10 @@
-package com.arhibale.sprite;
+package com.arhibale.sprite.ship;
 
 import com.arhibale.base.Ship;
 import com.arhibale.math.Rect;
 import com.arhibale.pool.BulletPool;
 import com.arhibale.pool.ExplosionPool;
+import com.arhibale.sprite.Bullet;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

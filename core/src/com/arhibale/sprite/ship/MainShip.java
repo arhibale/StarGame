@@ -1,9 +1,10 @@
-package com.arhibale.sprite;
+package com.arhibale.sprite.ship;
 
 import com.arhibale.base.Ship;
 import com.arhibale.math.Rect;
 import com.arhibale.pool.BulletPool;
 import com.arhibale.pool.ExplosionPool;
+import com.arhibale.sprite.Bullet;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -14,7 +15,7 @@ public class MainShip extends Ship {
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
-    private static final int DEFAULT_HP = 20;
+    private static final int DEFAULT_HP = 100;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -23,7 +24,6 @@ public class MainShip extends Ship {
     private int rightPointer = INVALID_POINTER;
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
-
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         this.explosionPool = explosionPool;
@@ -32,7 +32,7 @@ public class MainShip extends Ship {
         bulletV.set(0, 0.5f);
         bulletHeight = 0.01f;
         bulletDamage = 1;
-        shootInterval = 0.4f;
+        shootInterval = 0.2f;
         v0.set(0.5f, 0);
         hp = DEFAULT_HP;
     }
@@ -43,6 +43,17 @@ public class MainShip extends Ship {
         setHeightProportion(HEIGHT);
         this.worldBounds = worldBounds;
         setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
+    }
+
+    public void startNewGame() {
+        hp = DEFAULT_HP;
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        stop();
+        this.pos.x = worldBounds.pos.x;
+        flushDestroy();
     }
 
     @Override
@@ -157,9 +168,5 @@ public class MainShip extends Ship {
 
     private void stop() {
         v.setZero();
-    }
-
-    public void resetHp() {
-        hp = DEFAULT_HP;
     }
 }
