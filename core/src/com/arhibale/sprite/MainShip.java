@@ -14,6 +14,7 @@ public class MainShip extends Ship {
     private static final float HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
+    private static final int DEFAULT_HP = 20;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -33,7 +34,7 @@ public class MainShip extends Ship {
         bulletDamage = 1;
         shootInterval = 0.4f;
         v0.set(0.5f, 0);
-        hp = 1;
+        hp = DEFAULT_HP;
     }
 
     @Override
@@ -156,5 +157,9 @@ public class MainShip extends Ship {
 
     private void stop() {
         v.setZero();
+    }
+
+    public void resetHp() {
+        hp = DEFAULT_HP;
     }
 }

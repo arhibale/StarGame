@@ -8,7 +8,9 @@ import com.arhibale.pool.ExplosionPool;
 import com.arhibale.sprite.Background;
 import com.arhibale.sprite.Bullet;
 import com.arhibale.sprite.EnemyShip;
+import com.arhibale.sprite.GameOver;
 import com.arhibale.sprite.MainShip;
+import com.arhibale.sprite.NewGameButton;
 import com.arhibale.sprite.Star;
 import com.arhibale.utils.EnemyEmitter;
 import com.badlogic.gdx.Gdx;
@@ -34,6 +36,8 @@ public class GameScreen extends BaseScreen {
     private ExplosionPool explosionPool;
     private EnemyPool enemyPool;
     private MainShip mainShip;
+    private GameOver gameOver;
+    private NewGameButton newGameButton;
 
     private Sound bulletSound;
     private Sound laserSound;
@@ -69,6 +73,9 @@ public class GameScreen extends BaseScreen {
         music.setLooping(true);
         music.setVolume(0.5f);
         music.play();
+
+        gameOver = new GameOver(atlas);
+        newGameButton = new NewGameButton(atlas, mainShip, enemyPool, bulletPool);
     }
 
     @Override
@@ -88,6 +95,8 @@ public class GameScreen extends BaseScreen {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        gameOver.resize(worldBounds);
+        newGameButton.resize(worldBounds);
     }
 
     @Override
@@ -107,12 +116,18 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         mainShip.touchDown(touch, pointer, button);
+        if (mainShip.isDestroyed()) {
+            newGameButton.touchDown(touch, pointer, button);
+        }
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
+        if (mainShip.isDestroyed()) {
+            newGameButton.touchUp(touch, pointer, button);
+        }
         return false;
     }
 
@@ -139,6 +154,9 @@ public class GameScreen extends BaseScreen {
             mainShip.draw(batch);
             bulletPool.drawActiveSprite(batch);
             enemyPool.drawActiveSprite(batch);
+        } else {
+            gameOver.draw(batch);
+            newGameButton.draw(batch);
         }
         explosionPool.drawActiveSprite(batch);
         batch.end();

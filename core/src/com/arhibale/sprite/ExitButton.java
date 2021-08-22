@@ -5,7 +5,6 @@ import com.arhibale.math.Rect;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-
 public class ExitButton extends BaseButton {
 
     public ExitButton(TextureAtlas atlas) {

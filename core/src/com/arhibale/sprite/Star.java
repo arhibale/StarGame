@@ -6,7 +6,6 @@ import com.arhibale.math.Rnd;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
-
 public class Star extends Sprite {
 
     private final Vector2 v;
